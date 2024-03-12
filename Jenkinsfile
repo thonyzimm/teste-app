@@ -5,8 +5,8 @@ pipeline {
         stage('Build and Deploy with Docker Swarm') {
             steps {
                 script {
-                    // Permitir que o usuário do Jenkins execute docker stack deploy sem senha
-                    sh 'echo "jenkins ALL=(ALL) NOPASSWD: /usr/bin/docker stack deploy --compose-file docker-stack.yml vote" | sudo tee -a /etc/sudoers'
+                    // Adicionar permissão ao arquivo sudoers sem usar sudo
+                    sh 'echo "jenkins ALL=(ALL) NOPASSWD: /usr/bin/docker stack deploy --compose-file docker-stack.yml vote" | sudo tee -a /etc/sudoers >/dev/null'
                     
                     // Inicializar o Docker Swarm (se ainda não estiver inicializado)
                     sh 'sudo docker swarm init || true'
