@@ -90,7 +90,6 @@ services:
 
 volumes:
   db-data:
-    external: true
 
 networks:
   front-tier:
