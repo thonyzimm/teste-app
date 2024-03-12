@@ -4,12 +4,8 @@ pipeline {
     stages {
         stage('Build and run Docker Compose') {
             steps {
-                // Clonar o repositório do exemplo de aplicativo de votação
-                git 'https://github.com/thonyzimm/teste-app.git'
-                
-                // Acessar o diretório clonado
-                dir('example-voting-app-main') {
-                    // Executar o Docker Compose
+                // Executar o Docker Compose no diretório específico
+                dir('/root/example-voting-app-main') {
                     sh 'docker-compose up -d'
                 }
             }
