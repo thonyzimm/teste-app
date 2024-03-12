@@ -1,15 +1,15 @@
 pipeline {
-    agent {
-        label 'meu-label' // Ou qualquer outra forma de selecionar um agente
-        docker {
-            image 'docker'
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // Monta o socket do Docker
-            privileged true // Concede privilégios ao container
-        }
-    }
+    agent any
     
     stages {
         stage('Build and run Docker Compose') {
+            agent {
+                docker {
+                    image 'docker'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                    privileged true
+                }
+            }
             steps {
                 // Executar o Docker Compose no diretório específico
                 dir('/root/example-voting-app-main') {
