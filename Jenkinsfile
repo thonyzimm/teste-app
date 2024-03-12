@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Executar o Docker Compose no diretório específico
                 dir('/root/example-voting-app-main') {
-                    sh 'docker-compose up -d'
+                    sh 'docker compose up'
                 }
             }
         }
