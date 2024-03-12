@@ -1,26 +1,30 @@
 pipeline {
     agent any
-    stages {
-        stage('build da imagem docker'){
-            steps{
-            sh 'docker compose up'
-        }
+    
+    environment {
+        DOCKER_COMPOSE_VERSION = '1.29.2'
     }
-    stage('subir docker compose vote app'){
-            steps{
-            sh 'docker swarm init'
-        }
-    }
-    stage('sleep para subida de containers'){
-            steps{
-            sh 'sleep 20'
-        }
-    }
-    stage('teste app'){
-            steps{
-            sh 'docker stack deploy --compose-file docker-stack.yml vote'
-        }
-    }
-}    
-}
 
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/thonyzimm/teste-app.git'
+            }
+        }
+        
+        stage('Build and Run Docker Compose') {
+            steps {
+                script {
+                    sh "docker-compose up -d"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Cleanup
+            cleanWs()
+        }
+    }
+}
