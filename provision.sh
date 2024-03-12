@@ -41,3 +41,4 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+sudo usermod -aG docker jenkins
