@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('build da imagem docker'){
             steps{
-            sh 'docker build -t devops/app .'
+            sh 'docker compose up'
         }
     }
     stage('subir docker compose vote app'){
             steps{
-            sh 'docker-compose up-- build -d'
+            sh 'docker swarm init'
         }
     }
     stage('sleep para subida de containers'){
@@ -18,8 +18,9 @@ pipeline {
     }
     stage('teste app'){
             steps{
-            sh 'testeapp.sh'
+            sh 'docker stack deploy --compose-file docker-stack.yml vote'
         }
     }
 }    
 }
+
