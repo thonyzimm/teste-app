@@ -21,8 +21,8 @@ services:
     ports:
       - "5000:80"
     networks:
-      - front-tier
-      - back-tier
+      backend:
+        driver: bridge
 
   result:
     build: ./result
@@ -90,6 +90,7 @@ services:
 
 volumes:
   db-data:
+    external: true
 
 networks:
   front-tier:
