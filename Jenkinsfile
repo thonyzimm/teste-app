@@ -3,16 +3,13 @@ pipeline {
     
     stages {
         stage('Build and run Docker Compose') {
-            agent {
-                docker {
-                    image 'docker'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
-                    privileged true
-                }
-            }
             steps {
-                // Executar o Docker Compose no diretório específico
-                dir('/root/example-voting-app-main') {
+                // Clonar o repositório do exemplo de aplicativo de votação
+                git 'https://github.com/thonyzimm/teste-app'
+                
+                // Acessar o diretório clonado
+                dir('teste-app') {
+                    // Executar o Docker Compose
                     sh 'docker-compose up -d'
                 }
             }
