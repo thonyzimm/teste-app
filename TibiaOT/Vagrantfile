@@ -1,0 +1,12 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "generic/debian9"
+    config.vm.hostname = "tibiaotserver"
+    config.vbguest.installer_options = { allow_kernel_upgrade: true }
+    config.vm.network "forwarded_port", guest: 8081, host: 8081, hostip: 'devopsotserver.zapto.org'
+    config.vm.network "forwarded_port", guest: 7171, host: 7171, hostip: 'devopsotserver.zapto.org'
+    config.vm.network "forwarded_port", guest: 3306, host: 3306, hostip: '127.0.0.1'
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+    end
+    config.vm.provision "shell", path: "provision.sh"
+  end
